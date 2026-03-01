@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Training Report - Someshwarnagar Sugar Factory</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-text-gold {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .slide {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+            position: relative;
+            border-bottom: 1px solid #1f2937;
+        }
+        
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        
+        .glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(60px);
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(99, 102, 241, 0.5);
+            transform: translateY(-2px);
+        }
+        
+        .process-line {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid #374151;
+        }
+        
+        .process-line::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            background: #fbbf24;
+            border-radius: 50%;
+        }
+        
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .chapter-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.4);
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #818cf8;
+            margin-bottom: 1rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #374151;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #1f2937;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-left: 4px solid #6366f1;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 2rem 1rem;
+            }
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .process-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .process-step {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            position: relative;
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6366f1;
+            font-weight: bold;
+        }
+        
+        .process-step:last-child::after {
+            content: none;
+        }
+        
+        .safety-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="grain"></div>
+    
+    <!-- Slide 1: Title -->
+    <section class="slide" style="background: radial-gradient(ellipse at top, #1a1a2e 0%, #0a0a0a 100%);">
+        <div class="glow" style="top: -200px; left: -200px;"></div>
+        <div class="glow" style="bottom: -200px; right: -200px; background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);"></div>
+        
+        <div class="max-w-6xl mx-auto w-full fade-in">
+            <div class="text-center mb-8">
+                <span class="text-sm tracking-widest text-gray-400 uppercase">Industrial Training Report 2024-2025</span>
+            </div>
+            
+            <h1 class="font-display text-6xl md:text-8xl font-bold text-center mb-6 leading-tight">
+                <span class="gradient-text">Someshwarnagar</span><br>
+                <span class="text-white">Co-operative Sugar</span><br>
+                <span class="gradient-text-gold">Factory Ltd.</span>
+            </h1>
+            
+            <p class="text-xl text-gray-400 text-center max-w-2xl mx-auto mb-12">
+                From Sugarcane to Sweet Success: A Comprehensive Analysis of Modern Sugar Manufacturing, Co-operative Operations & Industrial Engineering Practices
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-8 mt-12">
+                <div class="metric-card rounded-2xl p-6 text-center min-w-[200px]">
+                    <div class="stat-number gradient-text-gold">7,500</div>
+                    <div class="text-sm text-gray-400 mt-2">Tons Crushing/Day</div>
+                </div>
+                <div class="metric-card rounded-2xl p-6 text-center min-w-[200px]">
+                    <div class="stat-number gradient-text">1960</div>
+                    <div class="text-sm text-gray-400 mt-2">Established</div>
+                </div>
+                <div class="metric-card rounded-2xl p-6 text-center min-w-[200px]">
+                    <div class="stat-number text-white">₹300Cr</div>
+                    <div class="text-sm text-gray-400 mt-2">Annual Turnover</div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16 text-gray-500 text-sm">
+                Baramati Taluka, Pune District, Maharashtra, India
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: Organization Structure -->
+    <section class="slide">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">CHAPTER 1</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Organization Structure & <span class="gradient-text">Industrial Framework</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-200">Organizational Hierarchy</h3>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        The organizational structure serves as the backbone of industrial operations, defining clear chains of command, accountability frameworks, and communication channels essential for efficient sugar manufacturing.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <div class="process-line">
+                            <h4 class="font-semibold text-lg">Top Management</h4>
+                            <p class="text-gray-400 text-sm">Chairman, Vice Chairman, Managing Director — Strategic decision-making and governance</p>
+                        </div>
+                        <div class="process-line">
+                            <h4 class="font-semibold text-lg">Technical Leadership</h4>
+                            <p class="text-gray-400 text-sm">Chief Engineer, Department Heads — Operational oversight and technical excellence</p>
+                        </div>
+                        <div class="process-line">
+                            <h4 class="font-semibold text-lg">Operational Core</h4>
+                            <p class="text-gray-400 text-sm">Engineers, Technicians, Skilled Workers — Execution and maintenance</p>
+                        </div>
+                        <div class="process-line">
+                            <h4 class="font-semibold text-lg">Support Systems</h4>
+                            <p class="text-gray-400 text-sm">Administrative, HR, Safety — Enabling functions and compliance</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="metric-card rounded-xl p-6">
+                        <h4 class="font-semibold text-lg mb-2 text-indigo-400">Key Benefits</h4>
+                        <ul class="space-y-2 text-gray-300 text-sm">
+                            <li>• Clear accountability and role definition</li>
+                            <li>• Streamlined decision-making processes</li>
+                            <li>• Efficient resource allocation</li>
+                            <li>• Scalable operational framework</li>
+                            <li>• Enhanced communication channels</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box rounded-r-xl">
+                        <p class="text-sm text-gray-300">
+                            <strong>Co-operative Model:</strong> 16,642 farmer-members as stakeholders ensure democratic governance and farmer welfare focus, distinguishing Someshwarnagar from corporate sugar mills.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Factory Overview -->
+    <section class="slide" style="background: linear-gradient(to bottom, #0a0a0a, #111827);">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">CHAPTER 2</span>
+            <h2 class="font-display text-5xl font-bold mb-4">Factory <span class="gradient-text-gold">Overview</span></h2>
+            <p class="text-xl text-gray-400 mb-12">Legacy of Co-operative Excellence Since 1960</p>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="metric-card rounded-2xl p-8 text-center">
+                    <div class="text-4xl mb-4">🏭</div>
+                    <h3 class="font-display text-2xl font-bold mb-2">Established</h3>
+                    <p class="text-3xl font-bold gradient-text">June 20, 1960</p>
+                    <p class="text-sm text-gray-400 mt-2">Under Co-operative Movement led by Late Shri Shankarrao Bajirao Patil</p>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-8 text-center">
+                    <div class="text-4xl mb-4">⚡</div>
+                    <h3 class="font-display text-2xl font-bold mb-2">Capacity</h3>
+                    <p class="text-3xl font-bold gradient-text-gold">7,500 TCD</p>
+                    <p class="text-sm text-gray-400 mt-2">Tons of Cane per Day (2024-2025)</p>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-8 text-center">
+                    <div class="text-4xl mb-4">👥</div>
+                    <h3 class="font-display text-2xl font-bold mb-2">Workforce</h3>
+                    <p class="text-3xl font-bold text-white">1,200+</p>
+                    <p class="text-sm text-gray-400 mt-2">Direct employees + 10,000+ indirect farmer beneficiaries</p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="metric-card rounded-2xl p-8">
+                    <h3 class="font-display text-2xl font-bold mb-6 gradient-text">Products & By-Products</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-2 border-b border-gray-800">
+                            <span class="text-gray-300">White Crystal Sugar</span>
+                            <span class="text-indigo-400 font-semibold">Primary Product</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-800">
+                            <span class="text-gray-300">Molasses (B-Heavy & C-Heavy)</span>
+                            <span class="text-amber-400 font-semibold">Ethanol/Distillery</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-800">
+                            <span class="text-gray-300">Bagasse</span>
+                            <span class="text-green-400 font-semibold">Cogeneration Fuel</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 border-b border-gray-800">
+                            <span class="text-gray-300">Press Mud</span>
+                            <span class="text-emerald-400 font-semibold">Organic Fertilizer</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2">
+                            <span class="text-gray-300">Electricity</span>
+                            <span class="text-blue-400 font-semibold">Grid Export</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-8">
+                    <h3 class="font-display text-2xl font-bold mb-6 gradient-text-gold">Key Personnel</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-indigo-900 flex items-center justify-center text-indigo-300 font-bold">PJ</div>
+                            <div>
+                                <p class="font-semibold">Mr. Purushottam R. Jagtap</p>
+                                <p class="text-sm text-gray-400">Chairman</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-purple-900 flex items-center justify-center text-purple-300 font-bold">MK</div>
+                            <div>
+                                <p class="font-semibold">Mr. Milind B. Kamble</p>
+                                <p class="text-sm text-gray-400">Vice Chairman</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-amber-900 flex items-center justify-center text-amber-300 font-bold">RY</div>
+                            <div>
+                                <p class="font-semibold">Mr. Rajendra N. Yadav</p>
+                                <p class="text-sm text-gray-400">Managing Director</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-blue-900 flex items-center justify-center text-blue-300 font-bold">NN</div>
+                            <div>
+                                <p class="font-semibold">Mr. N.H. Naykode</p>
+                                <p class="text-sm text-gray-400">Chief Engineer (Works Manager)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Equipment & Machinery -->
+    <section class="slide">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">CHAPTER 3</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Major Equipment & <span class="gradient-text">Technical Specifications</span></h2>
+            
+            <div class="equipment-grid">
+                <div class="metric-card rounded-2xl p-6 border-l-4 border-indigo-500">
+                    <h3 class="font-display text-xl font-bold mb-2">Cane Crushing Mill</h3>
+                    <p class="text-gray-400 text-sm mb-4">3-5 Roller Mill, 100-250 TPH capacity</p>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Cost</span>
+                        <span class="text-white font-semibold">₹1-2 Crore</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Maintenance</span>
+                        <span class="text-white">Lubrication, roller alignment</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800">
+                        <p class="text-xs text-gray-500">Extracts juice from sugarcane through high-pressure crushing</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-6 border-l-4 border-amber-500">
+                    <h3 class="font-display text-xl font-bold mb-2">High-Pressure Boiler</h3>
+                    <p class="text-gray-400 text-sm mb-4">45-110 kg/cm² pressure rating</p>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Cost</span>
+                        <span class="text-white font-semibold">₹5-10 Crore</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Fuel</span>
+                        <span class="text-white">Bagasse (by-product)</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800">
+                        <p class="text-xs text-gray-500">Steam generation for power and process heating</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-6 border-l-4 border-purple-500">
+                    <h3 class="font-display text-xl font-bold mb-2">Steam Turbine</h3>
+                    <p class="text-gray-400 text-sm mb-4">5-30 MW capacity, steam-driven</p>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Cost</span>
+                        <span class="text-white font-semibold">₹10-15 Crore</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Maintenance</span>
+                        <span class="text-white">Blade inspection, oil change</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800">
+                        <p class="text-xs text-gray-500">Power generation for captive use and grid export</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-6 border-l-4 border-green-500">
+                    <h3 class="font-display text-xl font-bold mb-2">Centrifugal Machine</h3>
+                    <p class="text-gray-400 text-sm mb-4">1200-1500 RPM operation</p>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Cost</span>
+                        <span class="text-white font-semibold">₹50-60 Lakh</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Function</span>
+                        <span class="text-white">Crystal separation</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800">
+                        <p class="text-xs text-gray-500">Separates sugar crystals from molasses</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-6 border-l-4 border-blue-500">
+                    <h3 class="font-display text-xl font-bold mb-2">Multi-Effect Evaporator</h3>
+                    <p class="text-gray-400 text-sm mb-4">Stainless steel construction</p>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Cost</span>
+                        <span class="text-white font-semibold">₹1-3 Crore</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Maintenance</span>
+                        <span class="text-white">Descaling, leak testing</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800">
+                        <p class="text-xs text-gray-500">Concentrates juice into syrup (65% solids)</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-6 border-l-4 border-pink-500">
+                    <h3 class="font-display text-xl font-bold mb-2">Vacuum Crystallizer</h3>
+                    <p class="text-gray-400 text-sm mb-4">50-100 m³ capacity, vacuum type</p>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Cost</span>
+                        <span class="text-white font-semibold">₹50L-1 Crore</span>
+                    </div>
+                    <div class="flex justify-between text-sm mb-2">
+                        <span class="text-gray-500">Function</span>
+                        <span class="text-white">Crystal formation</span>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-800">
+                        <p class="text-xs text-gray-500">Formation of sugar crystals under controlled vacuum</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 grid md:grid-cols-3 gap-4">
+                <div class="metric-card rounded-xl p-4 text-center">
+                    <p class="text-2xl font-bold text-indigo-400">PLC/SCADA</p>
+                    <p class="text-xs text-gray-400 mt-1">Siemens/Allen Bradley Automation</p>
+                </div>
+                <div class="metric-card rounded-xl p-4 text-center">
+                    <p class="text-2xl font-bold text-amber-400">ERP Systems</p>
+                    <p class="text-xs text-gray-400 mt-1">SAP/Tally/Customized Software</p>
+                </div>
+                <div class="metric-card rounded-xl p-4 text-center">
+                    <p class="text-2xl font-bold text-green-400">Quality Control</p>
+                    <p class="text-xs text-gray-400 mt-1">Polarimeter, pH Meter, Brix Hydrometer</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Manufacturing Process -->
+    <section class="slide" style="background: radial-gradient(ellipse at bottom, #1a1a2e 0%, #0a0a0a 100%);">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">CHAPTER 4</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Sugar Manufacturing <span class="gradient-text-gold">Process Flow</span></h2>
+            
+            <div class="mb-12">
+                <div class="process-flow">
+                    <div class="process-step">
+                        <div class="text-2xl mb-2">🌾</div>
+                        <p class="font-semibold text-sm">Cane Handling</p>
+                        <p class="text-xs text-gray-500 mt-1">Unloading, weighing, preparation</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="text-2xl mb-2">⚙️</div>
+                        <p class="font-semibold text-sm">Juice Extraction</p>
+                        <p class="text-xs text-gray-500 mt-1">Milling, imbibition water</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="text-2xl mb-2">🔬</div>
+                        <p class="font-semibold text-sm">Clarification</p>
+                        <p class="text-xs text-gray-500 mt-1">Lime addition, heating, settling</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="text-2xl mb-2">♨️</div>
+                        <p class="font-semibold text-sm">Evaporation</p>
+                        <p class="text-xs text-gray-500 mt-1">Multi-effect concentration</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="text-2xl mb-2">💎</div>
+                        <p class="font-semibold text-sm">Crystallization</p>
+                        <p class="text-xs text-gray-500 mt-1">Vacuum pan boiling, seeding</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="text-2xl mb-2">🔄</div>
+                        <p class="font-semibold text-sm">Centrifugation</p>
+                        <p class="text-xs text-gray-500 mt-1">Crystal separation, drying</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="metric-card rounded-2xl p-8">
+                    <h3 class="font-display text-xl font-bold mb-4 text-indigo-400">Detailed Process Stages</h3>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex gap-4">
+                            <span class="text-indigo-400 font-bold">01</span>
+                            <div>
+                                <p class="font-semibold text-gray-200">Cane Preparation & Milling</p>
+                                <p class="text-gray-400">Mechanical harvesters cut cane, transported to factory, weighed, chopped by fibrizer, crushed in 3-5 roller mills with imbibition water addition for maximum sucrose recovery.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-indigo-400 font-bold">02</span>
+                            <div>
+                                <p class="font-semibold text-gray-200">Juice Clarification (Sulphitation)</p>
+                                <p class="text-gray-400">Raw juice heated to 95°C, lime (CaO) and SO₂ added for pH adjustment, precipitates impurities as "mud," filtered to produce clear juice.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-indigo-400 font-bold">03</span>
+                            <div>
+                                <p class="font-semibold text-gray-200">Evaporation & Concentration</p>
+                                <p class="text-gray-400">4-5 effect evaporators concentrate juice from 15% to 65% solids (syrup), using steam economy and vapor bleeding for process heating.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-8">
+                    <h3 class="font-display text-xl font-bold mb-4 text-amber-400">Crystallization & Recovery</h3>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex gap-4">
+                            <span class="text-amber-400 font-bold">04</span>
+                            <div>
+                                <p class="font-semibold text-gray-200">Vacuum Pan Boiling</p>
+                                <p class="text-gray-400">Syrup boiled under vacuum (low temperature) to prevent caramelization, seeded with sugar fines to initiate crystal growth, forming massecuite.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-amber-400 font-bold">05</span>
+                            <div>
+                                <p class="font-semibold text-gray-200">Crystallization Stages</p>
+                                <p class="text-gray-400">A-Massecuite → White Sugar (VHP), B-Massecuite → Remelt/Seed, C-Massecuite → Final Molasses. Three boiling system maximizes sucrose recovery.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-amber-400 font-bold">06</span>
+                            <div>
+                                <p class="font-semibold text-gray-200">Centrifugation & Drying</p>
+                                <p class="text-gray-400">High-speed centrifuges (1200-1500 RPM) separate crystals from molasses, washed, dried in fluidized bed dryers, graded by size, packaged.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 highlight-box rounded-xl">
+                <p class="text-sm text-gray-300">
+                    <strong>Material Handling:</strong> Automated conveyor systems, forklift operations, AGV transport, and strict FIFO (First In-First Out) protocols ensure efficient workflow from raw material intake to finished goods dispatch.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Testing & Quality -->
+    <section class="slide">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">CHAPTER 5</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Testing, Quality Control & <span class="gradient-text">Material Handling</span></h2>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="metric-card rounded-2xl p-6">
+                    <h3 class="font-semibold text-lg mb-4 text-indigo-400">Hardware Testing</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Visual inspection (cracks, wear, rust)</li>
+                        <li>• Dimensional testing (vernier, micrometer)</li>
+                        <li>• Load testing (125% of SWL)</li>
+                        <li>• Electrical testing (continuity, insulation)</li>
+                    </ul>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-6">
+                    <h3 class="font-semibold text-lg mb-4 text-amber-400">Software Validation</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Functional testing (PLC/SCADA logic)</li>
+                        <li>• Simulation testing (virtual inputs)</li>
+                        <li>• Integration testing (sensor communication)</li>
+                        <li>• Security & backup recovery tests</li>
+                    </ul>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-6">
+                    <h3 class="font-semibold text-lg mb-4 text-green-400">Raw Material QC</h3>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li>• Chemical composition (spectrometer)</li>
+                        <li>• Mechanical testing (tensile, hardness)</li>
+                        <li>• Non-destructive testing (ultrasonic)</li>
+                        <li>• Sucrose content analysis (polarimeter)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="metric-card rounded-2xl p-8 mb-8">
+                <h3 class="font-display text-2xl font-bold mb-6">Material Handling Equipment Testing</h3>
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="text-center p-4 bg-gray-900 rounded-lg">
+                        <p class="text-2xl mb-2">🏗️</p>
+                        <p class="font-semibold text-sm">Lifts & Cranes</p>
+                        <p class="text-xs text-gray-400 mt-1">Load test 125%, brake test, wire rope inspection</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-900 rounded-lg">
+                        <p class="text-2xl mb-2">🔗</p>
+                        <p class="font-semibold text-sm">Slings & Pulleys</p>
+                        <p class="text-xs text-gray-400 mt-1">Proof load test (2x SWL), visual deformation check</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-900 rounded-lg">
+                        <p class="text-2xl mb-2">🔧</p>
+                        <p class="font-semibold text-sm">Hydraulic Jacks</p>
+                        <p class="text-xs text-gray-400 mt-1">Pressure sustainability, leak testing</p>
+                    </div>
+                    <div class="text-center p-4 bg-gray-900 rounded-lg">
+                        <p class="text-2xl mb-2">🔄</p>
+                        <p class="font-semibold text-sm">Conveyor Belts</p>
+                        <p class="text-xs text-gray-400 mt-1">Tension alignment, load capacity, safety switches</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="highlight-box rounded-r-xl">
+                    <h4 class="font-semibold mb-2 text-indigo-400">Safety Protocols</h4>
+                    <p class="text-sm text-gray-300">LOTO (Lock-out/Tag-out) procedures, PPE requirements, Safe Working Load (SWL) compliance, and regular preventive maintenance schedules ensure zero-accident material handling operations.</p>
+                </div>
+                <div class="highlight-box rounded-r-xl border-l-4 border-amber-500" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);">
+                    <h4 class="font-semibold mb-2 text-amber-400">Documentation</h4>
+                    <p class="text-sm text-gray-300">Comprehensive test certificates, inspection records, calibration logs, and maintenance schedules maintained for audit compliance and traceability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Safety -->
+    <section class="slide" style="background: linear-gradient(to bottom, #0a0a0a, #1f1f1f);">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">CHAPTER 6</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Safety Procedures & <span class="gradient-text-gold">Protective Systems</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 mb-12">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Safety Procedures Framework</h3>
+                    <div class="space-y-4">
+                        <div class="metric-card rounded-xl p-4 flex items-start gap-4">
+                            <div class="safety-icon">🔥</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Fire Safety</h4>
+                                <p class="text-sm text-gray-400">Fire extinguishers, sprinklers, hydrants installed. Regular fire drills and evacuation practices. Bagasse storage fire prevention protocols.</p>
+                            </div>
+                        </div>
+                        <div class="metric-card rounded-xl p-4 flex items-start gap-4">
+                            <div class="safety-icon">⚡</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Electrical & Mechanical</h4>
+                                <p class="text-sm text-gray-400">Earthing and insulation checks, periodic machine inspection, preventive maintenance schedules, LOTO procedures.</p>
+                            </div>
+                        </div>
+                        <div class="metric-card rounded-xl p-4 flex items-start gap-4">
+                            <div class="safety-icon">☣️</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Chemical Handling</h4>
+                                <p class="text-sm text-gray-400">Proper labeling and storage of lime, SO₂, molasses. Ventilation and fume extraction systems. Dust explosion prevention.</p>
+                            </div>
+                        </div>
+                        <div class="metric-card rounded-xl p-4 flex items-start gap-4">
+                            <div class="safety-icon">🚨</div>
+                            <div>
+                                <h4 class="font-semibold text-lg">Emergency Response</h4>
+                                <p class="text-sm text-gray-400">First-aid stations, trained safety officers, marked emergency exits, safety induction training for all employees.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Personal Protective Equipment (PPE)</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="metric-card rounded-xl p-4 text-center">
+                            <div class="text-3xl mb-2">⛑️</div>
+                            <p class="font-semibold text-sm">Head Protection</p>
+                            <p class="text-xs text-gray-400">Safety helmets, hard hats</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-4 text-center">
+                            <div class="text-3xl mb-2">🥽</div>
+                            <p class="font-semibold text-sm">Eye & Face</p>
+                            <p class="text-xs text-gray-400">Goggles, face shields</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-4 text-center">
+                            <div class="text-3xl mb-2">🧤</div>
+                            <p class="font-semibold text-sm">Hand Protection</p>
+                            <p class="text-xs text-gray-400">Rubber, heat-resistant gloves</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-4 text-center">
+                            <div class="text-3xl mb-2">👢</div>
+                            <p class="font-semibold text-sm">Foot Protection</p>
+                            <p class="text-xs text-gray-400">Steel toe safety shoes</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-4 text-center">
+                            <div class="text-3xl mb-2">🎧</div>
+                            <p class="font-semibold text-sm">Hearing</p>
+                            <p class="text-xs text-gray-400">Ear plugs, muffs</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-4 text-center">
+                            <div class="text-3xl mb-2">🦺</div>
+                            <p class="font-semibold text-sm">Body Protection</p>
+                            <p class="text-xs text-gray-400">Safety jackets, aprons</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-4 bg-red-900/20 border border-red-900/50 rounded-xl">
+                        <p class="text-sm text-red-200">
+                            <strong>Sugar Factory Specific Hazards:</strong> Dust explosion risks from bagasse handling, chemical exposure during sulphitation, high-pressure steam systems, and heavy machinery operations require specialized safety protocols.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Practical Experience -->
+    <section class="slide">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">CHAPTER 7 & 8</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Practical Training <span class="gradient-text">Experience</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="metric-card rounded-2xl p-8 border-t-4 border-indigo-500">
+                    <h3 class="font-display text-2xl font-bold mb-6">Departmental Exposure</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-semibold text-indigo-400 mb-2">Mill House Operations</h4>
+                            <p class="text-sm text-gray-400">Observed cane unloading, weighing, crushing operations. Learned about preparatory index importance, juice extraction efficiency, and bagasse moisture optimization for boiler fuel.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-indigo-400 mb-2">Boiler & Power Plant</h4>
+                            <p class="text-sm text-gray-400">Studied bagasse-fired high-pressure boilers, steam-water cycles, turbine operations, and cogeneration power export to state grid. Understood water treatment importance.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-indigo-400 mb-2">Process House</h4>
+                            <p class="text-sm text-gray-400">Monitored clarification, evaporation, crystallization, and centrifugation processes. Learned vacuum pan operation, seeding techniques, and crystal size control.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="metric-card rounded-2xl p-8 border-t-4 border-amber-500">
+                    <h3 class="font-display text-2xl font-bold mb-6">Technical Skills Gained</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-indigo-900 flex items-center justify-center text-indigo-300 text-sm font-bold">1</div>
+                            <p class="text-gray-300">Machine operation (Lathe, Milling, CNC)</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-indigo-900 flex items-center justify-center text-indigo-300 text-sm font-bold">2</div>
+                            <p class="text-gray-300">Quality inspection instruments (Vernier, Micrometer, Polarimeter)</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-indigo-900 flex items-center justify-center text-indigo-300 text-sm font-bold">3</div>
+                            <p class="text-gray-300">Assembly techniques and SOP adherence</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-indigo-900 flex items-center justify-center text-indigo-300 text-sm font-bold">4</div>
+                            <p class="text-gray-300">Preventive maintenance procedures</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-indigo-900 flex items-center justify-center text-indigo-300 text-sm font-bold">5</div>
+                            <p class="text-gray-300">Fault diagnosis and troubleshooting</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-indigo-900 flex items-center justify-center text-indigo-300 text-sm font-bold">6</div>
+                            <p class="text-gray-300">Safety protocol implementation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metric-card rounded-2xl p-8">
+                <h3 class="font-display text-xl font-bold mb-4">Key Learnings by Process Stage</h3>
+                <div class="grid md:grid-cols-4 gap-4 text-sm">
+                    <div class="p-4 bg-gray-900 rounded-lg">
+                        <p class="font-semibold text-amber-400 mb-2">Production</p>
+                        <p class="text-gray-400">Process planning, raw material flow, production scheduling, quality parameters, tolerance requirements</p>
+                    </div>
+                    <div class="p-4 bg-gray-900 rounded-lg">
+                        <p class="font-semibold text-amber-400 mb-2">Assembly</p>
+                        <p class="text-gray-400">Hand tools, torque wrenches, pneumatic tools, alignment, fitting, fastening techniques</p>
+                    </div>
+                    <div class="p-4 bg-gray-900 rounded-lg">
+                        <p class="font-semibold text-amber-400 mb-2">Testing</p>
+                        <p class="text-gray-400">NDT methods, load testing, performance testing, safety checks, calibration procedures</p>
+                    </div>
+                    <div class="p-4 bg-gray-900 rounded-lg">
+                        <p class="font-semibold text-amber-400 mb-2">Maintenance</p>
+                        <p class="text-gray-400">Lubrication, cleaning, tightening, calibration, breakdown procedures, troubleshooting</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Challenges & Experiences -->
+    <section class="slide" style="background: radial-gradient(ellipse at top right, #1f1f1f 0%, #0a0a0a 100%);">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">CHAPTER 9</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Challenging <span class="gradient-text">Experiences</span> & Insights</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-red-400">Challenges Faced</h3>
+                    <div class="space-y-4">
+                        <div class="metric-card rounded-xl p-5 border-l-4 border-red-500">
+                            <h4 class="font-semibold mb-2">Scale of Operations</h4>
+                            <p class="text-sm text-gray-400">Understanding synchronization between Mill, Boiler, Process House, and Turbine departments required intense observation and cross-functional learning.</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-5 border-l-4 border-orange-500">
+                            <h4 class="font-semibold mb-2">High-Risk Environments</h4>
+                            <p class="text-sm text-gray-400">Working near high-pressure steam (45-110 kg/cm²), hot surfaces, and heavy rotating machinery demanded strict safety awareness.</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-5 border-l-4 border-yellow-500">
+                            <h4 class="font-semibold mb-2">Troubleshooting Pressure</h4>
+                            <p class="text-sm text-gray-400">Witnessing conveyor belt breakdowns and centrifuge faults required understanding rapid fault diagnosis under production pressure.</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-5 border-l-4 border-gray-500">
+                            <h4 class="font-semibold mb-2">Environmental Adaptation</h4>
+                            <p class="text-sm text-gray-400">Adjusting to factory noise, shift timings, and standing for long observation periods was physically demanding initially.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6 text-green-400">Positive Experiences</h3>
+                    <div class="space-y-4">
+                        <div class="metric-card rounded-xl p-5 border-l-4 border-green-500">
+                            <h4 class="font-semibold mb-2">Mechanical Maintenance</h4>
+                            <p class="text-sm text-gray-400">Directly aligned with Mechanical Engineering diploma—exposure to turbines, gearboxes, boilers, and pumps was highly engaging.</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-5 border-l-4 border-blue-500">
+                            <h4 class="font-semibold mb-2">Teamwork Observation</h4>
+                            <p class="text-sm text-gray-400">Coordination between departments during shift changes and emergencies demonstrated professional industrial culture.</p>
+                        </div>
+                        <div class="metric-card rounded-xl p-5 border-l-4 border-indigo-500">
+                            <h4 class="font-semibold mb-2">By-Product Utilization</h4>
+                            <p class="text-sm text-gray-400">Learning waste-to-wealth concepts—bagasse to power, molasses to ethanol, press mud to fertilizer—showcased circular economy.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 p-6 bg-gray-900 rounded-xl border border-gray-800">
+                        <h4 class="font-semibold mb-3 text-amber-400">Areas for Improvement</h4>
+                        <ul class="text-sm text-gray-400 space-y-2">
+                            <li>• Effluent treatment and molasses handling odors</li>
+                            <li>• Ergonomic improvements for long standing operations</li>
+                            <li>• Noise reduction in boiler sections</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Conclusion -->
+    <section class="slide" style="background: linear-gradient(to bottom, #0a0a0a, #1a1a2e);">
+        <div class="max-w-6xl mx-auto w-full text-center">
+            <span class="chapter-badge">CHAPTER 10</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Conclusion & <span class="gradient-text-gold">Future Scope</span></h2>
+            
+            <div class="max-w-4xl mx-auto mb-12">
+                <p class="text-xl text-gray-300 leading-relaxed mb-6">
+                    The industrial training at <strong>Someshwarnagar Co-operative Sugar Factory</strong> has been a transformative bridge between academic knowledge and real-world industrial practices. From sugarcane handling to crystallization, from boiler operations to co-generation, the experience provided comprehensive exposure to heavy industry operations.
+                </p>
+                <p class="text-lg text-gray-400 leading-relaxed">
+                    This experience strengthened foundations in thermodynamics, fluid mechanics, manufacturing processes, and industrial safety while developing essential soft skills—teamwork, time management, communication, and problem-solving—that define successful engineering careers.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <div class="metric-card rounded-2xl p-8">
+                    <div class="text-4xl mb-4">📚</div>
+                    <h3 class="font-display text-xl font-bold mb-3">Technical Growth</h3>
+                    <p class="text-sm text-gray-400">Practical application of mechanical engineering principles in real industrial settings with heavy machinery and process optimization.</p>
+                </div>
+                <div class="metric-card rounded-2xl p-8">
+                    <div class="text-4xl mb-4">🌱</div>
+                    <h3 class="font-display text-xl font-bold mb-3">Sustainability Insight</h3>
+                    <p class="text-sm text-gray-400">Understanding co-generation, ethanol production, and circular economy models in agro-industrial contexts.</p>
+                </div>
+                <div class="metric-card rounded-2xl p-8">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="font-display text-xl font-bold mb-3">Career Foundation</h3>
+                    <p class="text-sm text-gray-400">Preparation for higher studies, competitive exams, and professional roles in manufacturing and energy sectors.</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box rounded-2xl max-w-3xl mx-auto text-left">
+                <h4 class="font-display text-lg font-bold mb-3 text-indigo-400">Future Learning Objectives</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-300">
+                    <div>• Advanced plant maintenance techniques</div>
+                    <div>• Process optimization and automation</div>
+                    <div>• CAD/CAM tool proficiency</div>
+                    <div>• Renewable energy systems integration</div>
+                    <div>• Green energy and ethanol technologies</div>
+                    <div>• Industry 4.0 and smart manufacturing</div>
+                </div>
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-gray-800 text-gray-500 text-sm">
+                <p>Someshwarnagar Co-operative Sugar Factory Ltd. | Baramati, Pune, Maharashtra</p>
+                <p class="mt-2">Industrial Training Report 2024-2025 | Mechanical Engineering</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: References -->
+    <section class="slide" style="background: #0a0a0a;">
+        <div class="max-w-6xl mx-auto w-full">
+            <span class="chapter-badge">REFERENCES</span>
+            <h2 class="font-display text-5xl font-bold mb-8">Sources & <span class="gradient-text">Bibliography</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-indigo-400">Primary Sources</h3>
+                    <div class="metric-card rounded-xl p-6 mb-4">
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li>• Practical training at Someshwarnagar Co-operative Sugar Factory Ltd.</li>
+                            <li>• Technical staff and engineer interactions (Mill House, Boiler, Power Plant)</li>
+                            <li>• On-site machinery operation observations</li>
+                            <li>• Factory logbooks and maintenance records</li>
+                            <li>• Operation manuals for major equipment</li>
+                        </ul>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mb-4 text-amber-400">Standards & Codes</h3>
+                    <div class="metric-card rounded-xl p-6">
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li>• Bureau of Indian Standards (BIS) safety codes</li>
+                            <li>• ISI specifications for boilers and pressure vessels</li>
+                            <li>• Factory Act compliance documentation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-green-400">Textbooks & Literature</h3>
+                    <div class="metric-card rounded-xl p-6 mb-4">
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li>• <em>Sugar Technology and Engineering</em> — Peter Honig</li>
+                            <li>• <em>Unit Operations of Chemical Engineering</em> — McCabe, Smith & Harriott</li>
+                            <li>• <em>Elements of Mechanical Engineering</em> — Jagdish Lal</li>
+                            <li>• Thermodynamics, Manufacturing Processes, Boilers & Steam Turbines textbooks</li>
+                        </ul>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold mb-4 text-purple-400">Digital Resources</h3>
+                    <div class="metric-card rounded-xl p-6">
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li>• Indian Sugar Mills Association (ISMA) official resources</li>
+                            <li>• National Federation of Cooperative Sugar Factories (NFCSF)</li>
+                            <li>• NPTEL (IIT Online Lectures) — Chemical Engineering</li>
+                            <li>• Maharashtra Sugar Commissionerate publications</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center text-gray-600 text-sm">
+                <p>Report compiled under the guidance of factory engineers and academic supervisors.</p>
+                <p class="mt-2">All technical specifications and data verified against factory records as of 2024-2025.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scroll behavior for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.metric-card, .process-step').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
